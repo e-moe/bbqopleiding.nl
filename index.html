@@ -1,27 +1,32 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="nl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <title>BBQ Opleiding</title>
-    <style>
-	body, html {
-	  height: 100%;
-	  display: grid;
-	  margin: 0;
-	}
-	img {
-	  margin: auto;
-	  max-height: 75vh;
-	  max-width: 75vw;
-	}
-        p {
-            text-align: center;
-        }
-    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/3.0.1/modern-normalize.min.css" integrity="sha512-q6WgHqiHlKyOqslT/lgBgodhd03Wp4BEqKeW6nNtlOY4quzyG3VoQKFrieaCeSnuVseNKRGpGeDU3qPmabCANg==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link rel="stylesheet" href="main.css"/>
 </head>
 <body>
-    <img src="bbq-opleiding.png" alt="BBQ Opleiding">
-    <p>Gloed van 't Vuur, eerste bekende Nederlandse BBQ-liefhebber, deelt vlees kookkunst wijsheid.</p>
+    <div class="wrapper">
+        <header>BBQ Opleiding - vlees kookkunst wijsheid</header>
+
+        <aside class="sidebar">
+            <ul>
+                <li><a href="/" class="active">Voorpagina</a></li>
+                <li><a href="#">Over de BBQ Opleiding</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </aside>
+
+        <main class="content">
+            <figure>
+                <img src="bbq-opleiding.png" alt="BBQ Opleiding">
+            <figcaption>Gloed van 't Vuur, eerste bekende Nederlandse BBQ-liefhebber, deelt vlees kookkunst wijsheid.</figcaption>
+            </figure>
+        </main>
+
+        <footer>© BBQ Opleiding 2025</footer>
+    </div>
 </body>
 </html>
