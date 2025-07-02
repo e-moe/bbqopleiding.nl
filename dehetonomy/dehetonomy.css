@@ -1,0 +1,17 @@
+#quiz-container {
+    div.item {
+        margin: 1em 0;
+        
+        label {
+            padding-right: 0.5rem;
+        }
+    }
+    
+    .checked.valid {
+        background-color: #efe;
+    }
+    
+    .checked.invalid {
+        background-color: #fee;
+    }
+}

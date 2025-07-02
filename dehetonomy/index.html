@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="nl">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <title>BBQ Opleiding - Dehetonomy</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/3.0.1/modern-normalize.min.css" integrity="sha512-q6WgHqiHlKyOqslT/lgBgodhd03Wp4BEqKeW6nNtlOY4quzyG3VoQKFrieaCeSnuVseNKRGpGeDU3qPmabCANg==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link rel="stylesheet" href="../main.css"/>
+    <link rel="stylesheet" href="dehetonomy.css"/>
+</head>
+<body>
+    <div class="wrapper">
+        <header>BBQ Opleiding - vlees kookkunst wijsheid</header>
+
+        <nav class="menu">
+            <ul>
+                <li><a href="..">Voorpagina</a></li>
+                <li><a href="." class="active">Dehetonomy</a></li>
+                <li><a href="#">Over de BBQ Opleiding</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+
+        <main class="content">
+            <h1>Dehetonomy - Wanneer het geheugen je enige hoop is.</h1>
+            <div id="quiz-container"></div>
+            <input id="quiz-check" type="button" value="Controleren"/>
+            <input id="quiz-reset" type="button" value="Reset"/>
+            <input id="quiz-shuffle" type="button" value="Ik heb geluk"/>
+        </main>
+        
+        <aside class="sidebar">
+            <section>
+                <em>Margenotities:</em>
+                <p>Alle verkleinwoorden - het</p>
+                <p>Alle meervouden - de</p>
+                <p>Meeste beroepen - de</p>
+            </section>
+        </aside>
+
+        <footer>© BBQ Opleiding 2025</footer>
+    </div>
+    
+    <script>
+        (function(){
+            var wordsInQuiz = 7;
+            var woorden = [
+                'de barbecue',
+                'de grill',
+                'het vlees',
+                'de biefstuk',
+                'de saus',
+                'de rook',
+                'de houtskool',
+                'de barbecuekruiden',
+                'de ossenhaas',
+                'de entrecote',
+                'het mes',
+                'de vork',
+                'het vuur',
+                'het vet',
+                'de ventilatiegaten',
+                'de temperatuur',
+                'het grilloppervlak'
+            ];
+            
+            var format = (string, values) => string.replace(/{(.*?)}/g, (match, offset) => values[offset]);
+            
+            var shuffle = function (array) {
+                for (let i = array.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [array[i], array[j]] = [array[j], array[i]];
+                }
+            };
+            
+            var init = function(woorden, wordsInQuiz) {
+                var list = woorden.map((word) => word.trim());
+                shuffle(list);
+                var list = list.slice(0, wordsInQuiz);
+                var $quizContainer = document.getElementById('quiz-container');
+                $quizContainer.innerHTML = '';
+
+                list.forEach((word, index) => {
+                    var parts = word.split(' ');
+                    var lidwoord = parts[0];
+                    var woord = parts[1];
+
+                    var html = format('<label><input type="radio" value="de" name="radio-{index}"> de</label> <label><input type="radio" value="het" name="radio-{index}"> het</label> <span>{woord}</span>', {woord: woord, index: index});
+
+                    var $dom = document.createElement('div');
+                    $dom.classList.add('item');
+                    $dom.innerHTML = html;
+                    $dom.dataset.lidwoord = lidwoord;
+
+                    $quizContainer.append($dom);
+                });
+            };
+            
+            var $quizCheck = document.getElementById('quiz-check');
+            $quizCheck.addEventListener('click', () => {
+                var itemCount = document.querySelectorAll('#quiz-container .item').length;
+                var $radios = document.querySelectorAll('#quiz-container input[type=radio]:checked');
+                var correctAnswersCount = 0;
+
+                $radios.forEach(($element) => {
+                    var $item = $element.closest('.item');
+                    var isValid = $item.dataset.lidwoord === $element.value;
+
+                    if (isValid) {
+                        correctAnswersCount++;
+                    }
+                    
+                    $item.classList.add('checked');
+                    $item.classList.add(isValid ? 'valid' : 'invalid');
+                    $item.classList.remove(isValid ? 'invalid' : 'valid');
+                    
+                });
+        
+                console.log(format('Your score is {score}% ({correct} of {total})', {
+                    score: Math.round(correctAnswersCount / itemCount * 100),
+                    correct: correctAnswersCount,
+                    total: itemCount
+                }));
+            });
+            
+            var $quizReset = document.getElementById('quiz-reset');
+            $quizReset.addEventListener('click', () => {
+                var $items = document.querySelectorAll('#quiz-container .item');
+                var $radios = document.querySelectorAll('#quiz-container input[type=radio]:checked');
+                $items.forEach(($item) => { $item.classList.remove('checked'); });
+                $radios.forEach(($radio) => { $radio.checked = false; });
+            });
+            
+            var $quizShuffle = document.getElementById('quiz-shuffle');
+            $quizShuffle.addEventListener('click', () => init(woorden, wordsInQuiz));
+            
+            init(woorden, wordsInQuiz);
+        })();
+    </script>
+</body>
+</html>
